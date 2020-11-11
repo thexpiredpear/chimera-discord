@@ -1,0 +1,16 @@
+{
+  "Name":
+  {
+    "Weapon": "Rusty Sword",
+    "Attack": 10,
+    "Armor": "Old Chest Plate",
+    "Defense": 10
+  },
+  "Watermelon":
+  {
+    "Weapon": "Rusty Sword",
+    "Attack": 10,
+    "Armor": "Old Chest Plate",
+    "Defense": 10
+  }
+}
