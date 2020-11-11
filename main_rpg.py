@@ -1,4 +1,6 @@
 import discord
+import redis
+import psutil
 import json
 from discord.ext import commands, tasks
 from itertools import cycle
