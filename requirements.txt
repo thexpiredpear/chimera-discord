@@ -1,0 +1,4 @@
+discord.py==1.5.1
+asyncio==3.4.3
+redis==3.5.3
+psutil==5.7.0
