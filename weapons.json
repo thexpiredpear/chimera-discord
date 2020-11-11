@@ -1,0 +1,60 @@
+{
+  "Fireweed Bow":
+  {
+    "Class": "Archer",
+    "Damage": 3,
+    "Range": 4,
+    "Craft":
+    {
+      "Craftable": "Yes",
+      "Scraps": 4,
+      "Fireweed": 3
+    },
+    "Description": "A lightweight bow fashioned from fireweed. Fairly sturdy. The steel is warm to the touch, almost pulsing."
+  },
+  "Scrap Metal Dagger":
+  {
+    "Class": "Rogue",
+    "Damage": 4,
+    "Range": 1,
+    "Craft":
+    {
+      "Craftable": "Yes",
+      "Scraps": 12
+    },
+    "Description": "A dagger fashioned from loose scraps."
+  },
+  "Thorn Cutter":
+  {
+    "Class": "Warrior",
+    "Damage": 6,
+    "Range": 2,
+    "Craft":
+    {
+      "Craftable": "No"
+    },
+    "Description": "A blade forged from steel centuries ago. Abandoned in the flower field, it has felt natures embrace, growing long, jagged thorns."
+  },
+  "Flower Staff":
+  {
+    "Class": "Mage",
+    "Damage": 4,
+    "Range": 5,
+    "Craft":
+    {
+      "Craftable": "No"
+    },
+    "Description": "It's really just a long stick with a flower on it, but in a mage's hands, it'll do the job.\n"
+  },
+  "Broad Sword":
+  {
+    "Class": "Warrior",
+    "Damage": 8,
+    "Range": 1,
+    "Craft":
+    {
+      "Craftable": "No"
+    },
+    "Description": "The blade seems to thirst for blood. The heavy blade feels light, and the leather grip cold. It feels almost as if it were dancing in your hands."
+  }
+}

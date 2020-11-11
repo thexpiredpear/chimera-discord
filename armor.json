@@ -1,0 +1,50 @@
+{
+  "Basilisk Hide Cloak":
+  {
+    "Class": "Rogue",
+    "Defense": 2,
+    "Hitpoints": 20,
+    "Craft":
+    {
+      "Craftable": "No"
+    },
+    "Description": "A cloak fashioned from the hide of a basilisk, left long ago by a warrior before you. As you don the cloack, you feel it's warmth; it's energy flowing through you."
+  },
+  "Fireweed Mail":
+  {
+    "Class": "Warrior",
+    "Defense": 3,
+    "Hitpoints": 20,
+    "Craft":
+    {
+      "Craftable": "Yes",
+      "Fireweed": 6,
+      "Scraps": 3
+    },
+    "Description": "Armor forged from scrap heated by fireweed."
+  },
+  "Flameweed Light Armor":
+  {
+    "Class": "Archer",
+    "Defense": 4,
+    "Hitpoints": 0,
+    "Craft":
+    {
+      "Craftable": "Yes",
+      "Flameweed": 1,
+      "Fireweed": 2
+    },
+    "Description": "The flameweed tendrils wrap around you, heating you up. You feel warm."
+  },
+  "Grizzly Pelt":
+  {
+    "Class": "Mage",
+    "Defense": 0,
+    "Hitpoints": 50,
+    "Craft":
+    {
+      "Craftable": "No"
+    },
+    "Description": "The silky, dense robe provides you with both warm and a sense of elegancy. But be warned, from elegance arrogance is born."
+  }
+}
