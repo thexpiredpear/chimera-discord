@@ -14,6 +14,7 @@ intents = discord.Intents(messages=True, guilds=True, reactions=True, members=Tr
 client = commands.Bot(command_prefix="ch ", intents=intents)
 status = cycle(["TwinkiePlayz Kinda Gay", "Suffocation, a game we all can play!", "Global Thermonuclear War"])
 
+TOKEN = os.getenv("bot-token")
 
 def fight_embed(author):
     with open("regen_stats.json") as f:
