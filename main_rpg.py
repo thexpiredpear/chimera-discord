@@ -8,6 +8,7 @@ from test import *
 from Enemy import *
 import random
 import time
+import os
 import asyncio
 
 intents = discord.Intents(messages=True, guilds=True, reactions=True, members=True, presences=True)
