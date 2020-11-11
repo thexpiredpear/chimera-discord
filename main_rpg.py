@@ -221,4 +221,4 @@ async def craft(ctx, object=None):
         await channel.send("You did not respond in time, so the storekeep asked you to leave the store. You complied with her demands.")
 
 
-client.run("Nzc1NDY1MDAyOTY1NjYzNzQ2.X6muEA.0ma-eQbB_OYkfx7QOOJ9oeqtMLU")
+client.run(TOKEN)
