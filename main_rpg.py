@@ -76,19 +76,19 @@ async def change_status():
 @client.command(aliases=["create"])
 async def create_profile(ctx, profile_class=None):
     if profile_class == None:
-        ctx.send("Please provide what class you would like to pick for your profile! The classes are Warrior, Mage, Archer, and Rougue")
+        await ctx.send("Please provide what class you would like to pick for your profile! The classes are Warrior, Mage, Archer, and Rougue")
         return True
     elif profile_class not in classes_list:
-        ctx.send('""'class + '"" is not a valid class! The classes are Warrior, Mage, Archer, and Rougue')
+        await ctx.send('\"'class + '\" is not a valid class! The classes are Warrior, Mage, Archer, and Rougue')
         return True
     try:
         user = ctx.message.author.id
         profile = {class, random.choice(fruits)}
         redis.hmset(str(user), profile)
-        ctx.send("Created profile" + random.choice(fruits) "successfully as class" + class)
+        await ctx.send("Created profile" + random.choice(fruits) "successfully as class" + class)
 
     except:
-        ctx.send("There was an error creating your profile!")
+        await ctx.send("There was an error creating your profile!")
 
 @client.command()
 async def fight(ctx):
