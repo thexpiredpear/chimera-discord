@@ -10,8 +10,7 @@ import random
 import time
 import os
 import asyncio
-import urllib
-import urlparse
+from urllib.parse import urlparse
 import sys
 import aiohttp
 
@@ -20,7 +19,7 @@ client = commands.Bot(command_prefix="ch ", intents=intents)
 status = cycle(["TwinkiePlayz Kinda Gay", "Suffocation, a game we all can play!", "Global Thermonuclear War"])
 
 TOKEN = os.getenv("bot-token")
-url = urlparse.urlparse(os.getenv('REDISCLOUD_URL'))
+url = urlparse(os.getenv('REDISCLOUD_URL'))
 redis = redis.Redis(host=url.hostname, port=url.port, password=url.password)
 classes = ['Warrior', 'Mage', 'Archer', 'Rougue']
 fruits = ['Grape', 'Mango', 'Blueberry', 'Strawberry', 'Lemon', 'Kiwi']
