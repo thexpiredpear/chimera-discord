@@ -78,16 +78,19 @@ async def create_profile(ctx, profile_class=None):
     if profile_class == None:
         await ctx.send("Please provide what class you would like to pick for your profile! The classes are Warrior, Mage, Archer, and Rogue")
         return True
-    elif profile_class not in classes_list:
-        thing = profile_class + ' is not a valid class! The classes are Warrior, Mage, Archer, and Rogue'
+    elif profile_class.capitalize() not in classes_list:
+        thing = profile_class.capitalize() + ' is not a valid class! The classes are Warrior, Mage, Archer, and Rogue'
         await ctx.send(thing)
+        return True
+    elif rpgdb.exists(str(ctx.message.author.id)):
+        ctx.send("You already have an existing profile " + rpgdb.hget(str(ctx.message.author.id), "fruit") + " with class " + rpgdb.hget(str(ctx.message.author.id), "class"))
         return True
     try:
         userid = str(ctx.message.author.id)
         fruit = str(random.choice(fruit_list))
         profile = {"class": profile_class, "fruit": fruit}
         rpgdb.hmset(userid, profile)
-        await ctx.send("Created profile " + fruit + " successfully as class" + str(profile_class))
+        await ctx.send("Created profile " + fruit + " successfully as class " + profile_class.capitalize())
     except:
         await ctx.send("There was an error creating your profile!")
 
