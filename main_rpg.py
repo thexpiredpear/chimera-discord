@@ -88,14 +88,14 @@ async def profile(ctx, statement=None, profile_class=None):
         elif rpgdb.exists(str(ctx.message.author.id)):
             await ctx.send("You already have an existing profile " + rpgdb.hget(str(ctx.message.author.id), "fruit").decode("utf-8") + " with class " + rpgdb.hget(str(ctx.message.author.id), "class").decode("utf-8"))
             return True
-            try:
-                userid = str(ctx.message.author.id)
-                fruit = str(random.choice(fruit_list))
-                profile = {"class": profile_class, "fruit": fruit}
-                rpgdb.hmset(userid, profile)
-                await ctx.send("Created profile " + fruit + " successfully as class " + profile_class.capitalize())
-            except:
-                await ctx.send("There was an error creating your profile, please try again")
+        try:
+            userid = str(ctx.message.author.id)
+            fruit = str(random.choice(fruit_list))
+            profile = {"class": profile_class, "fruit": fruit}
+            rpgdb.hmset(userid, profile)
+            await ctx.send("Created profile " + fruit + " successfully as class " + profile_class.capitalize())
+        except:
+            await ctx.send("There was an error creating your profile, please try again")
     elif statement.lower() == "delete":
         if rpgdb.exists(str(ctx.message.author.id)):
             try:
