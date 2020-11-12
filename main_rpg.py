@@ -107,7 +107,7 @@ async def profile(ctx, statement=None, profile_class=None):
         else:
             await ctx.send("You have no profiles to delete!")
 
-client.command()
+@client.command()
 async def profiles(ctx):
     if rpgdb.exists(str(ctx.message.author.id)):
         await ctx.send("You currently have profile " + rpgdb.hget(str(ctx.message.author.id), "fruit").decode("utf-8") + " using class " + rpgdb.hget(str(ctx.message.author.id), "class").decode("utf-8"))
