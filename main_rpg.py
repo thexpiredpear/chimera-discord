@@ -79,14 +79,14 @@ async def create_profile(ctx, profile_class=None):
         await ctx.send("Please provide what class you would like to pick for your profile! The classes are Warrior, Mage, Archer, and Rogue")
         return True
     elif profile_class not in classes_list:
-        thing = 'This is not a valid class! The classes are Warrior, Mage, Archer, and Rogue'
+        thing = profile_class + ' is not a valid class! The classes are Warrior, Mage, Archer, and Rogue'
         await ctx.send(thing)
         return True
     try:
         user = ctx.message.author.id
-        profile = {class, random.choice(fruits)}
+        profile = {profile_class, random.choice(fruits)}
         redis.hmset(str(user), profile)
-        await ctx.send("Created profile" + random.choice(fruits) "successfully as class" + class)
+        await ctx.send("Created profile" + random.choice(fruits) "successfully as class" + str(profile_class))
 
     except:
         await ctx.send("There was an error creating your profile!")
@@ -97,7 +97,7 @@ async def fight(ctx):
         stats = json.load(f)
     with open("player_weapons.json") as f:
         weapons = json.load(f)
-
+        
     await ctx.send(embed=fight_embed(ctx.message.author))
     channel = ctx.message.channel
 
