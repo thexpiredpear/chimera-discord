@@ -77,7 +77,7 @@ async def change_status():
 async def profile(ctx, statement=None, profile_class=None):
     if statement == None:
         await ctx.send("Choose whether to create a new profile or delete your current one! [ch profile create <class>] [ch profile delete]")
-    elif statement.lower() = "create":
+    elif statement.lower() == "create":
         if profile_class == None:
             await ctx.send("Please provide what class you would like to pick for your profile! The classes are Warrior, Mage, Archer, and Rogue")
             return True
@@ -96,7 +96,7 @@ async def profile(ctx, statement=None, profile_class=None):
                 await ctx.send("Created profile " + fruit + " successfully as class " + profile_class.capitalize())
             except:
                 await ctx.send("There was an error creating your profile, please try again")
-    elif statement.lower() = "delete":
+    elif statement.lower() == "delete":
         if rpgdb.exists(str(ctx.message.author.id)):
             try:
                 deleted_profile = rpgdb.hget(str(ctx.message.author.id), "fruit").decode("utf-8")
