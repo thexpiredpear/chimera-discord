@@ -12,6 +12,7 @@ import os
 import asyncio
 import urllib
 import urlparse
+import sys
 
 intents = discord.Intents(messages=True, guilds=True, reactions=True, members=True, presences=True)
 client = commands.Bot(command_prefix="ch ", intents=intents)
@@ -66,8 +67,7 @@ def fight_embed(author):
 async def on_ready():
     await client.change_presence(status=discord.Status.online)
     change_status.start()
-    print("Bot is ready.")
-
+    print_to_stdout("Bot ready")
 
 @tasks.loop(seconds=30)
 async def change_status():
@@ -75,20 +75,21 @@ async def change_status():
 
 @client.command(aliases=["create"])
 async def create_profile(ctx, class=None):
-    if class == None:
-        ctx.send("Please provide what class you would like to pick for your profile! The classes are Warrior, Mage, Archer, and Rougue")
-        return True
-    elif class not in classes:
-        ctx.send('""'class + '"" is not a valid class! The classes are Warrior, Mage, Archer, and Rougue')
-        return True
-    try:
-        user = ctx.message.author.id
-        profile = {class, random.choice(fruits)}
-        redis.hmset(str(user), profile)
-        ctx.send("Created profile" + random.choice(fruits) "successfully as class" + class)
+    ctx.send("hi")
+    #if class == None:
+        #ctx.send("Please provide what class you would like to pick for your profile! The classes are Warrior, Mage, Archer, and Rougue")
+    #    return True
+#    elif class not in classes:
+    #    ctx.send('""'class + '"" is not a valid class! The classes are Warrior, Mage, Archer, and Rougue')
+    #    return True
+#    try:
+    #    user = ctx.message.author.id
+#        profile = {class, random.choice(fruits)}
+#        redis.hmset(str(user), profile)
+    #    ctx.send("Created profile" + random.choice(fruits) "successfully as class" + class)
 
-    except:
-        ctx.send("There was an error creating your profile!")
+#    except:
+#        ctx.send("There was an error creating your profile!")
 
 @client.command()
 async def fight(ctx):
