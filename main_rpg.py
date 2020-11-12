@@ -89,7 +89,7 @@ async def create_profile(ctx, class=None):
         await ctx.send("Created profile" + random.choice(fruits) "successfully as class" + class)
 
     except:
-        ctx.send("There was an error creating your profile!")
+        await ctx.send("There was an error creating your profile!")
 
 @client.command()
 async def fight(ctx):
