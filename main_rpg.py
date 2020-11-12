@@ -74,8 +74,7 @@ async def change_status():
     await client.change_presence(activity=discord.Game(next(status)))
 
 @client.command(aliases=["create"])
-async def create_profile(ctx, class=None):
-    await ctx.send("tst")
+async def create_profile(ctx, class):
     if class == None:
         await ctx.send("Please provide what class you would like to pick for your profile! The classes are Warrior, Mage, Archer, and Rougue")
         return True
