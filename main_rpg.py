@@ -73,27 +73,40 @@ async def on_ready():
 async def change_status():
     await client.change_presence(activity=discord.Game(next(status)))
 
-@client.command(aliases=["create"])
-async def create_profile(ctx, profile_class=None):
-    if profile_class == None:
-        await ctx.send("Please provide what class you would like to pick for your profile! The classes are Warrior, Mage, Archer, and Rogue")
-        return True
-    elif profile_class.capitalize() not in classes_list:
-        thing = profile_class.capitalize() + ' is not a valid class! The classes are Warrior, Mage, Archer, and Rogue'
-        await ctx.send(thing)
-        return True
-    elif rpgdb.exists(str(ctx.message.author.id)):
-        await ctx.send("You already have an existing profile " + rpgdb.hget(str(ctx.message.author.id), "fruit").decode("utf-8") + " with class " + rpgdb.hget(str(ctx.message.author.id), "class").decode("utf-8"))
-        return True
-    try:
-        userid = str(ctx.message.author.id)
-        fruit = str(random.choice(fruit_list))
-        profile = {"class": profile_class, "fruit": fruit}
-        rpgdb.hmset(userid, profile)
-        await ctx.send("Created profile " + fruit + " successfully as class " + profile_class.capitalize())
-    except:
-        await ctx.send("There was an error creating your profile!")
-
+@client.command()
+async def profile(ctx, statement=None, profile_class=None):
+    if statement=None:
+        await ctx.send("Choose whether to create a new profile or delete your current one! [ch profile create <class>] [ch profile delete]")
+    elif statement.lower() = "create":
+        if profile_class == None:
+            await ctx.send("Please provide what class you would like to pick for your profile! The classes are Warrior, Mage, Archer, and Rogue")
+            return True
+        elif profile_class.capitalize() not in classes_list:
+            thing = profile_class.capitalize() + ' is not a valid class! The classes are Warrior, Mage, Archer, and Rogue'
+            await ctx.send(thing)
+            return True
+        elif rpgdb.exists(str(ctx.message.author.id)):
+            await ctx.send("You already have an existing profile " + rpgdb.hget(str(ctx.message.author.id), "fruit").decode("utf-8") + " with class " + rpgdb.hget(str(ctx.message.author.id), "class").decode("utf-8"))
+            return True
+            try:
+                userid = str(ctx.message.author.id)
+                fruit = str(random.choice(fruit_list))
+                profile = {"class": profile_class, "fruit": fruit}
+                rpgdb.hmset(userid, profile)
+                await ctx.send("Created profile " + fruit + " successfully as class " + profile_class.capitalize())
+            except:
+                await ctx.send("There was an error creating your profile, please try again")
+    elif statement.lower() = "delete":
+        if rpgdb.exists(str(ctx.message.author.id)):
+            try:
+                deleted_profile = rpgdb.hget(str(ctx.message.author.id), "fruit").decode("utf-8")
+                rpgdb.delete(str(ctx.message.author.id))
+                await ctx.send("Profile " + deleted_profile + " was successfully deleted!")
+            except:
+                await ctx.send("There was an error deleting your profile")
+        else:
+            await ctx.send("You have no profiles to delete!")
+        
 @client.command()
 async def fight(ctx):
     with open("regen_stats.json") as f:
