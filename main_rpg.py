@@ -67,7 +67,7 @@ def fight_embed(author):
 async def on_ready():
     await client.change_presence(status=discord.Status.online)
     change_status.start()
-    print_to_stdout("Bot ready")
+    print("Bot ready")
 
 @tasks.loop(seconds=30)
 async def change_status():
