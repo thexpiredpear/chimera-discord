@@ -22,7 +22,7 @@ TOKEN = os.getenv("bot-token")
 url = urlparse(os.getenv('REDISCLOUD_URL'))
 redis = redis.Redis(host=url.hostname, port=url.port, password=url.password)
 classes_list = ['Warrior', 'Mage', 'Archer', 'Rogue']
-fruits = ['Grape', 'Mango', 'Blueberry', 'Strawberry', 'Lemon', 'Kiwi']
+fruit_list = ['Grape', 'Mango', 'Blueberry', 'Strawberry', 'Lemon', 'Kiwi']
 
 def fight_embed(author):
     with open("regen_stats.json") as f:
@@ -84,10 +84,10 @@ async def create_profile(ctx, profile_class=None):
         return True
     try:
         user = ctx.message.author.id
-        profile = {profile_class, random.choice(fruits)}
+        fruit = str(random.choice(fruit_list))
+        profile = {"class": profile_class, "fruit": fruit}
         redis.hmset(str(user), profile)
-        await ctx.send("Created profile" + random.choice(fruits) "successfully as class" + str(profile_class))
-
+        await ctx.send("Created profile " + fruit " successfully as class" + str(profile_class))
     except:
         await ctx.send("There was an error creating your profile!")
 
@@ -97,7 +97,7 @@ async def fight(ctx):
         stats = json.load(f)
     with open("player_weapons.json") as f:
         weapons = json.load(f)
-        
+
     await ctx.send(embed=fight_embed(ctx.message.author))
     channel = ctx.message.channel
 
