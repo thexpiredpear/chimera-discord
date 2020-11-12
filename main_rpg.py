@@ -20,7 +20,7 @@ status = cycle(["TwinkiePlayz Kinda Gay", "Suffocation, a game we all can play!"
 
 TOKEN = os.getenv("bot-token")
 url = urlparse(os.getenv('REDISCLOUD_URL'))
-db = redis.Redis(host=url.hostname, port=url.port, password=url.password)
+rpgdb = redis.Redis(host=url.hostname, port=url.port, password=url.password)
 classes_list = ['Warrior', 'Mage', 'Archer', 'Rogue']
 fruit_list = ['Grape', 'Mango', 'Blueberry', 'Strawberry', 'Lemon', 'Kiwi']
 
@@ -83,10 +83,10 @@ async def create_profile(ctx, profile_class=None):
         await ctx.send(thing)
         return True
     try:
-        user = ctx.message.author.id
+        userid = str(ctx.message.author.id)
         fruit = str(random.choice(fruit_list))
         profile = {"class": profile_class, "fruit": fruit}
-        db.hmset(str(user), profile)
+        rpgdb.hmset(userid, profile)
         await ctx.send("Created profile " + fruit " successfully as class" + str(profile_class))
     except:
         await ctx.send("There was an error creating your profile!")
