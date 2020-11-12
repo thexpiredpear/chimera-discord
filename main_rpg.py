@@ -81,10 +81,16 @@ async def create(ctx, class=None):
     elif class not in classes:
         ctx.send('""'class + '"" is not a valid class! The classes are Warrior, Mage, Archer, and Rougue')
         return True
+    try {
+        user = ctx.message.author.id
+        profile = {class, random.choice(fruits)}
+        redis.hmset(str(user), profile)
+        ctx.send("Created profile" + random.choice(fruits) "successfully as class" + class)
+    }
 
-    user = ctx.message.author.id
-    profile = {class, random.choice(fruits)}
-    redis.hmset(str(user), profile)
+    except {
+        ctx.send("There was an error creating your profile!")
+    }
 
 @client.command()
 async def fight(ctx):
