@@ -10,12 +10,18 @@ import random
 import time
 import os
 import asyncio
+import urllib
+import urlparse
 
 intents = discord.Intents(messages=True, guilds=True, reactions=True, members=True, presences=True)
 client = commands.Bot(command_prefix="ch ", intents=intents)
 status = cycle(["TwinkiePlayz Kinda Gay", "Suffocation, a game we all can play!", "Global Thermonuclear War"])
 
 TOKEN = os.getenv("bot-token")
+url = urlparse.urlparse(os.getenv('REDISCLOUD_URL'))
+redis = redis.Redis(host=url.hostname, port=url.port, password=url.password)
+classes = ['Warrior', 'Mage', 'Archer', 'Rougue']
+fruits = ['Grape', 'Mango', 'Blueberry', 'Strawberry', 'Lemon', 'Kiwi']
 
 def fight_embed(author):
     with open("regen_stats.json") as f:
@@ -31,7 +37,7 @@ def fight_embed(author):
 
     embed = discord.Embed(
         title="Battle",
-        description="Battle in RPG Bot 1.0",
+        description="Battle in Chimera 1.0",
         color=discord.Color.blue()
     )
     health = "Health: "+progress_bar(nest["Health"], nest["Max Health"])
@@ -68,6 +74,19 @@ async def change_status():
     await client.change_presence(activity=discord.Game(next(status)))
 
 @client.command()
+async def create(ctx, class=None):
+    if class == None:
+        ctx.send("Please provide what class you would like to pick for your profile! The classes are Warrior, Mage, Archer, and Rougue")
+        return True
+    elif class not in classes:
+        ctx.send('""'class + '"" is not a valid class! The classes are Warrior, Mage, Archer, and Rougue')
+        return True
+
+    user = ctx.message.author.id
+    profile = {class, random.choice(fruits)}
+    redis.hmset(str(user), profile)
+
+@client.command()
 async def fight(ctx):
     with open("regen_stats.json") as f:
         stats = json.load(f)
@@ -76,8 +95,8 @@ async def fight(ctx):
 
     await ctx.send(embed=fight_embed(ctx.message.author))
     channel = ctx.message.channel
-    
-#     nest2 = stats[str(author)]
+
+    nest2 = stats[str(author)]
 
     while enemy.health > 0: # and nest2["Health"] > 0:
         def check(m):
@@ -86,20 +105,20 @@ async def fight(ctx):
             await client.wait_for('message', timeout=10.0, check=check)
             author = str(ctx.message.author)[:-5]
             nest = weapons[str(author)]
-            strike = nest["Attack"]-(nest["Attack"]*(enemy.defense/100))
+                strike = nest["Attack"]-(nest["Attack"]*(enemy.defense/100))
             enemy.health -= round(strike)
             await ctx.send('You struck the enemy for {0}!'.format(strike))
         except asyncio.TimeoutError:
             await channel.send("You were too late and you missed your chance to strike")
-           
-#         author = str(ctx.message.author)[:-5]
-#         nest = weapons[str(author)]
-#         nest2 = stats[str(author)]
-#         strike2 = enemy.attack - (enemy.attack * (nest["Defense"] / 100))
-#         nest2["Health"] -= round(strike2)
-#         await ctx.send('The enemy struck you for {0}!'.format(strike2))
-#         with open("regen_stats.json", "w") as f:
-#             json.dump(stats, f, indent=4)
+
+        author = str(ctx.message.author)[:-5]
+        nest = weapons[str(author)]
+        nest2 = stats[str(author)]
+        strike2 = enemy.attack - (enemy.attack * (nest["Defense"] / 100))
+        nest2["Health"] -= round(strike2)
+        await ctx.send('The enemy struck you for {0}!'.format(strike2))
+        with open("regen_stats.json", "w") as f:
+            json.dump(stats, f, indent=4)
 
         await ctx.send(embed=fight_embed(ctx.message.author))
 
