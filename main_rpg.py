@@ -75,7 +75,7 @@ async def change_status():
 
 @client.command()
 async def profile(ctx, statement=None, profile_class=None):
-    if statement=None:
+    if statement == None:
         await ctx.send("Choose whether to create a new profile or delete your current one! [ch profile create <class>] [ch profile delete]")
     elif statement.lower() = "create":
         if profile_class == None:
@@ -106,7 +106,7 @@ async def profile(ctx, statement=None, profile_class=None):
                 await ctx.send("There was an error deleting your profile")
         else:
             await ctx.send("You have no profiles to delete!")
-        
+
 @client.command()
 async def fight(ctx):
     with open("regen_stats.json") as f:
