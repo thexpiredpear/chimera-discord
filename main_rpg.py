@@ -21,7 +21,7 @@ status = cycle(["TwinkiePlayz Kinda Gay", "Suffocation, a game we all can play!"
 TOKEN = os.getenv("bot-token")
 url = urlparse(os.getenv('REDISCLOUD_URL'))
 redis = redis.Redis(host=url.hostname, port=url.port, password=url.password)
-classes = ['Warrior', 'Mage', 'Archer', 'Rougue']
+classes_list = ['Warrior', 'Mage', 'Archer', 'Rougue']
 fruits = ['Grape', 'Mango', 'Blueberry', 'Strawberry', 'Lemon', 'Kiwi']
 
 def fight_embed(author):
@@ -74,11 +74,11 @@ async def change_status():
     await client.change_presence(activity=discord.Game(next(status)))
 
 @client.command(aliases=["create"])
-async def create_profile(ctx, class):
-    if class == None:
+async def create_profile(ctx, profile_class=None):
+    if profile_class == None:
         await ctx.send("Please provide what class you would like to pick for your profile! The classes are Warrior, Mage, Archer, and Rougue")
         return True
-    elif class not in classes:
+    elif profile_class not in classes_list:
         await ctx.send('""'class + '"" is not a valid class! The classes are Warrior, Mage, Archer, and Rougue')
         return True
     try:
