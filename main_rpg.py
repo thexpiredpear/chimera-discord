@@ -111,7 +111,7 @@ async def fight(ctx):
             await client.wait_for('message', timeout=10.0, check=check)
             author = str(ctx.message.author)[:-5]
             nest = weapons[str(author)]
-                strike = nest["Attack"]-(nest["Attack"]*(enemy.defense/100))
+            strike = nest["Attack"]-(nest["Attack"]*(enemy.defense/100))
             enemy.health -= round(strike)
             await ctx.send('You struck the enemy for {0}!'.format(strike))
         except asyncio.TimeoutError:
