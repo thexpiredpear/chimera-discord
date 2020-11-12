@@ -73,8 +73,8 @@ async def on_ready():
 async def change_status():
     await client.change_presence(activity=discord.Game(next(status)))
 
-@client.command()
-async def create(ctx, class=None):
+@client.command(aliases=["create"])
+async def create_profile(ctx, class=None):
     if class == None:
         ctx.send("Please provide what class you would like to pick for your profile! The classes are Warrior, Mage, Archer, and Rougue")
         return True
@@ -89,7 +89,7 @@ async def create(ctx, class=None):
 
     except:
         ctx.send("There was an error creating your profile!")
-    
+
 @client.command()
 async def fight(ctx):
     with open("regen_stats.json") as f:
