@@ -76,8 +76,10 @@ async def fight(ctx):
 
     await ctx.send(embed=fight_embed(ctx.message.author))
     channel = ctx.message.channel
+    
+    nest2 = stats[str(author)]
 
-    while enemy.health > 0:
+    while enemy.health > 0 and nest2["Health"] > 0:
         def check(m):
             return (m.content.lower() == 'attack' or m.content.lower() == 'skill' or m.content.lower() == 'use skill') and m.channel == channel
         try:
@@ -89,6 +91,15 @@ async def fight(ctx):
             await ctx.send('You struck the enemy for {0}!'.format(strike))
         except asyncio.TimeoutError:
             await channel.send("You were too late and you missed your chance to strike")
+           
+        author = str(ctx.message.author)[:-5]
+        nest = weapons[str(author)]
+        nest2 = stats[str(author)]
+        strike2 = enemy.attack - (enemy.attack * (nest["Defense"] / 100))
+        nest2["Health"] -= round(strike2)
+        await ctx.send('The enemy struck you for {0}!'.format(strike2))
+        with open("regen_stats.json", "w") as f:
+            json.dump(stats, f, indent=4)
 
         await ctx.send(embed=fight_embed(ctx.message.author))
 
