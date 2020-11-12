@@ -70,9 +70,9 @@ async def on_ready():
     change_status.start()
     print_to_stdout("Bot ready")
 
-@tasks.loop(seconds=30)
-async def change_status():
-    await client.change_presence(activity=discord.Game(next(status)))
+#@tasks.loop(seconds=30)
+#async def change_status():
+#    await client.change_presence(activity=discord.Game(next(status)))
 
 @client.command(aliases=["create"])
 async def create_profile(ctx, class=None):
