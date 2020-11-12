@@ -86,12 +86,12 @@ async def profile(ctx, statement=None, profile_class=None):
             await ctx.send(thing)
             return True
         elif rpgdb.exists(str(ctx.message.author.id)):
-            await ctx.send("You already have an existing profile " + rpgdb.hget(str(ctx.message.author.id), "fruit").decode("utf-8") + " with class " + rpgdb.hget(str(ctx.message.author.id), "class").decode("utf-8"))
+            await ctx.send("You already have an existing profile " + rpgdb.hget(str(ctx.message.author.id), "fruit").decode("utf-8") + " with class " + rpgdb.hget(str(ctx.message.author.id), "class").decode("utf-8").capitalize())
             return True
         try:
             userid = str(ctx.message.author.id)
             fruit = str(random.choice(fruit_list))
-            profile = {"class": profile_class, "fruit": fruit}
+            profile = {"class": profile_class.capitalize(), "fruit": fruit}
             rpgdb.hmset(userid, profile)
             await ctx.send("Created profile " + fruit + " successfully as class " + profile_class.capitalize())
         except:
