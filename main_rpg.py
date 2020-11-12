@@ -87,7 +87,7 @@ async def create_profile(ctx, profile_class=None):
         fruit = str(random.choice(fruit_list))
         profile = {"class": profile_class, "fruit": fruit}
         rpgdb.hmset(userid, profile)
-        await ctx.send("Created profile " + fruit " successfully as class" + str(profile_class))
+        await ctx.send("Created profile " + fruit + " successfully as class" + str(profile_class))
     except:
         await ctx.send("There was an error creating your profile!")
 
