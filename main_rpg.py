@@ -74,10 +74,6 @@ async def on_ready():
 async def change_status():
     await client.change_presence(activity=discord.Game(next(status)))
 
-@client.command()
-async def async_test(ctx):
-    await ctx.send("tst")
-
 @client.command(aliases=["create"])
 async def create_profile(ctx, class=None):
     if class == None:
