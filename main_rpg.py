@@ -13,6 +13,7 @@ import asyncio
 import urllib
 import urlparse
 import sys
+import aiohttp
 
 intents = discord.Intents(messages=True, guilds=True, reactions=True, members=True, presences=True)
 client = commands.Bot(command_prefix="ch ", intents=intents)
@@ -75,21 +76,20 @@ async def change_status():
 
 @client.command(aliases=["create"])
 async def create_profile(ctx, class=None):
-    ctx.send("hi")
-    #if class == None:
-        #ctx.send("Please provide what class you would like to pick for your profile! The classes are Warrior, Mage, Archer, and Rougue")
-    #    return True
-#    elif class not in classes:
-    #    ctx.send('""'class + '"" is not a valid class! The classes are Warrior, Mage, Archer, and Rougue')
-    #    return True
-#    try:
-    #    user = ctx.message.author.id
-#        profile = {class, random.choice(fruits)}
-#        redis.hmset(str(user), profile)
-    #    ctx.send("Created profile" + random.choice(fruits) "successfully as class" + class)
+    if class == None:
+        await ctx.send("Please provide what class you would like to pick for your profile! The classes are Warrior, Mage, Archer, and Rougue")
+        return True
+    elif class not in classes:
+        await ctx.send('""'class + '"" is not a valid class! The classes are Warrior, Mage, Archer, and Rougue')
+        return True
+    try:
+        user = ctx.message.author.id
+        profile = {class, random.choice(fruits)}
+        redis.hmset(str(user), profile)
+        await ctx.send("Created profile" + random.choice(fruits) "successfully as class" + class)
 
-#    except:
-#        ctx.send("There was an error creating your profile!")
+    except:
+        ctx.send("There was an error creating your profile!")
 
 @client.command()
 async def fight(ctx):
