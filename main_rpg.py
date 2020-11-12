@@ -83,7 +83,7 @@ async def create_profile(ctx, profile_class=None):
         await ctx.send(thing)
         return True
     elif rpgdb.exists(str(ctx.message.author.id)):
-        await ctx.send("You already have an existing profile " + rpgdb.hget(str(ctx.message.author.id), "fruit") + " with class " + rpgdb.hget(str(ctx.message.author.id), "class"))
+        await ctx.send("You already have an existing profile " + rpgdb.hget(str(ctx.message.author.id).decode("utf-8"), "fruit") + " with class " + rpgdb.hget(str(ctx.message.author.id), "class").decode("utf-8"))
         return True
     try:
         userid = str(ctx.message.author.id)
