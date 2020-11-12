@@ -79,7 +79,7 @@ async def create_profile(ctx, profile_class=None):
         await ctx.send("Please provide what class you would like to pick for your profile! The classes are Warrior, Mage, Archer, and Rogue")
         return True
     elif profile_class not in classes_list:
-        thing = '\"'class + '\" is not a valid class! The classes are Warrior, Mage, Archer, and Rogue'
+        thing = '\"' + class + '\" is not a valid class! The classes are Warrior, Mage, Archer, and Rogue'
         await ctx.send(thing)
         return True
     try:
