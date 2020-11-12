@@ -203,7 +203,7 @@ async def craft(ctx, object=None):
             return (m.content.lower() == "yes") and m.channel == channel
 
         try:
-            await client.wait_for("message", timeout=10.0, check=check)
+            await client.wait_for("message", timeout=20.0, check=check)
             author = str(ctx.message.author)[:-5]
             nest = items[author]
             has_necessary_ingredients = True
