@@ -127,7 +127,7 @@ async def fight(ctx):
     nest2 = stats[str(author)]
     author = str(ctx.message.author)[:-5]
 
-    while enemy.health > 0: and nest2["Health"] > 0:
+    while enemy.health > 0 and nest2["Health"] > 0:
         def check(m):
             return (m.content.lower() == 'attack' or m.content.lower() == 'skill' or m.content.lower() == 'use skill') and m.channel == channel
         try:
