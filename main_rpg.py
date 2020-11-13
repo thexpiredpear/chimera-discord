@@ -18,6 +18,8 @@ intents = discord.Intents(messages=True, guilds=True, reactions=True, members=Tr
 client = commands.Bot(command_prefix="ch ", intents=intents)
 status = cycle(["TwinkiePlayz Kinda Gay", "Suffocation, a game we all can play!", "Global Thermonuclear War"])
 
+devs = ["677343881351659570", "712057428765704192", "582435253709176848", "721918108901703702"]
+
 TOKEN = os.getenv("bot-token")
 url = urlparse(os.getenv('REDISCLOUD_URL'))
 rpgdb = redis.Redis(host=url.hostname, port=url.port, password=url.password)
@@ -300,5 +302,61 @@ async def craft(ctx, object=None):
     except asyncio.TimeoutError:
         await channel.send("You did not respond in time, so the storekeep asked you to leave the store. You complied with her demands.")
 
+
+@client.command(pass_context=True, aliases=["eval", "run"])
+async def _eval(ctx, *, code="You need to input code."):
+    if str(ctx.message.author.id) in devs:
+        global_vars = globals().copy()
+        global_vars["bot"] = client
+        global_vars["ctx"] = ctx
+        global_vars["message"] = ctx.message
+        global_vars["author"] = ctx.message.author
+        global_vars["channel"] = ctx.message.channel
+        global_vars["server"] = ctx.message.guild
+
+        try:
+            result = eval(code, global_vars, locals())
+            if asyncio.iscoroutine(result):
+                result = await result
+            result = str(result)
+            embed = discord.Embed(title="Evaluated successfully.", color=0x80FF80)
+            embed.add_field(
+                name="**Input** :inbox_tray:",
+                value="```py\n" + code + "```",
+                inline=False,
+            )
+            embed.add_field(
+                name="**Output** :outbox_tray:",
+                value=f"```diff\n+ {result}```".replace(
+                    f"{TOKEN}", "no ur not getting my token die"
+                ).replace(f"{redisurl}", "no ur not getting my db url die"),
+            )
+            await ctx.send(embed=embed)
+        except Exception as error:
+            error_value = (
+                "```diff\n- {}: {}```".format(type(error).__name__, str(error))
+                .replace(f"{TOKEN}", "no ur not getting my token die")
+                .replace(f"{redisurl}", "no ur not getting my db url die")
+            )
+            embed = discord.Embed(title="Evaluation failed.", color=0xF7665F)
+            embed.add_field(
+                name="Input :inbox_tray:", value="```py\n" + code + "```", inline=False
+            )
+            embed.add_field(
+                name="Error :interrobang: ",
+                value=error_value,
+            )
+            await ctx.send(embed=embed)
+            return
+    else:
+        embed = discord.Embed(title="Evaluation failed.", color=0xF7665F)
+        embed.add_field(
+            name="Input :inbox_tray:", value="```py\n" + code + "```", inline=False
+        )
+        embed.add_field(
+            name="Error :interrobang: ",
+            value="```You are not a admin```",
+        )
+        await ctx.send(embed=embed)
 
 client.run(TOKEN)
