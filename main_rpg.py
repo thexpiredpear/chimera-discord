@@ -91,7 +91,7 @@ async def profile(ctx, statement=None, profile_class=None):
         try:
             userid = str(ctx.message.author.id)
             fruit = str(random.choice(fruit_list))
-            profile = {"class": profile_class.capitalize(), "fruit": fruit}
+            profile = {"class": profile_class.capitalize(), "fruit": fruit, "health": 25, "max_health": 25, "mana": 25, "max_mana": 25}
             rpgdb.hmset(userid, profile)
             await ctx.send("Created profile " + fruit + " successfully as class " + profile_class.capitalize())
         except:
