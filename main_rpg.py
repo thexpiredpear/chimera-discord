@@ -150,6 +150,27 @@ async def fight(ctx):
 
         await ctx.send(embed=fight_embed(ctx.message.author))
 
+        
+        
+@client.command()
+async def add_sets(ctx):
+    with open("armor.json") as f:
+        armor = json.load(f)
+
+    with open("weapons.json") as f:
+        weapons = json.load(f)
+
+    for armor_set in armor:
+        userid = "armor"
+        profile = {"piece": armor_set}
+        rpgdb.hmset(userid, profile)
+
+    for weapon in weapons:
+        userid = "weapons"
+        profile = {"piece": weapon}
+        rpgdb.hmset(userid, profile)
+        
+        
 @client.command()
 async def craft(ctx, object=None):
     all_items = []
