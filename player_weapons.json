@@ -12,5 +12,12 @@
     "Attack": 10,
     "Armor": "Old Chest Plate",
     "Defense": 10
+  },
+  "thexpiredpear":
+  {
+    "Weapon": "Rusty Sword",
+    "Attack": 10,
+    "Armor": "Old Chest Plate",
+    "Defense": 10
   }
 }
