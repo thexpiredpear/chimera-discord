@@ -329,14 +329,14 @@ async def _eval(ctx, *, code="You need to input code."):
                 name="**Output** :outbox_tray:",
                 value=f"```diff\n+ {result}```".replace(
                     f"{TOKEN}", "no ur not getting my token die"
-                ).replace(f"{redisurl}", "no ur not getting my db url die"),
+                ).replace(f"{os.getenv('REDISCLOUD_URL')}", "no ur not getting my db url die"),
             )
             await ctx.send(embed=embed)
         except Exception as error:
             error_value = (
                 "```diff\n- {}: {}```".format(type(error).__name__, str(error))
                 .replace(f"{TOKEN}", "no ur not getting my token die")
-                .replace(f"{redisurl}", "no ur not getting my db url die")
+                .replace(f"{os.getenv('REDISCLOUD_URL')}", "no ur not getting my db url die")
             )
             embed = discord.Embed(title="Evaluation failed.", color=0xF7665F)
             embed.add_field(
