@@ -124,8 +124,8 @@ async def fight(ctx):
     await ctx.send(embed=fight_embed(ctx.message.author))
     channel = ctx.message.channel
 
-    nest2 = stats[str(author)]
     author = str(ctx.message.author)[:-5]
+    nest2 = stats[str(author)]
 
     while enemy.health > 0 and nest2["Health"] > 0:
         def check(m):
