@@ -18,7 +18,7 @@ intents = discord.Intents(messages=True, guilds=True, reactions=True, members=Tr
 client = commands.Bot(command_prefix="ch ", intents=intents)
 status = cycle(["TwinkiePlayz Kinda Gay", "Suffocation, a game we all can play!", "Global Thermonuclear War"])
 
-devs = ["677343881351659570", "712057428765704192", "582435253709176848", "721918108901703702"]
+devs = ["677343881351659570", "712057428765704192",  "721918108901703702"]
 
 TOKEN = os.getenv("bot-token")
 url = urlparse(os.getenv('REDISCLOUD_URL'))
