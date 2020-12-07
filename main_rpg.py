@@ -358,5 +358,10 @@ async def _eval(ctx, *, code="You need to input code."):
             value="```You are not a admin```",
         )
         await ctx.send(embed=embed)
-
+                
+try:
+    client.load_extension("jishaku")
+except BaseException:
+    print("jsk loading failed")
+                
 client.run(TOKEN)
