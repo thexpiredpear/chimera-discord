@@ -399,10 +399,10 @@ async def suggestion(ctx):
         await msg.add_reaction("👍")
         await msg.add_reaction("👎")
 
-        embed = discord.Embed(description="Your suggestion has been added!", color=grab_color(str(author.id)))
+        embed = discord.Embed(description="Your suggestion has been added!", color=discord.Color.blue())
         embed.set_author(name=f"{str(author)[:-5]}'s suggestion", icon_url=pfp)
         embed.add_field(name="See The Results", value="To see the results of your suggestion and to vote on others' suggestion, "
-                                                      "join our [Support Server](https://discord.gg/e428ktbYhd) and get **$500** daily!")
+                                                      "join our [Support Server](https://discord.gg/F4W8YJ8BeC) and get **$500** daily!")
 
         await ctx.send(embed=embed)
 
