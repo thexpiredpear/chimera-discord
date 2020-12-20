@@ -358,6 +358,73 @@ async def _eval(ctx, *, code="You need to input code."):
             value="```You are not a admin```",
         )
         await ctx.send(embed=embed)
+
+@client.command(aliases=["feedback", "suggest"])
+@commands.cooldown(1, 86400, commands.BucketType.user)
+async def suggestion(ctx):
+    embed = discord.Embed(title="Rules of Suggestions", description="The rules of suggestions! Please read before "
+                                                                    "making a suggestion.", color=grab_color(str(ctx.author.id)))
+
+    embed.add_field(name="Make a suggestion that will be beneficial to the bot", value="Please make sure that your suggestion "
+                                                                                      "will help the bot helpful to the bot, "
+                                                                                      "do not suggest something that will hurt "
+                                                                                      "the bot.", inline=False)
+    embed.add_field(name="No using inappropriate language", value="In your suggestion make sure to not have inappropriate language,"
+                                                                  "in fact we do have profanity filters and if you somehow bypass"
+                                                                  "that, it may be a bannable offense. **Occasional swearing is permitted**", inline=False)
+    embed.add_field(name="You may suggest something be added to the Server", value="Although you may suggest something beneficial to the bot,"
+                                                                                   "you may suggest something be added to the *server*, and"
+                                                                                   "we will take your suggestion into account.", inline=False)
+    embed.add_field(name="No trolling or spamming", value="Do not troll the bot's server by typing arbitrary suggestions, and do not create alts"
+                                                          "and spam our suggestion feed. This is a *bannable* offense.")
+    embed.add_field(name="Thank you for reading!", value="Type your suggestion down below. You have **10 minutes.**", inline=False)
+    embed.set_footer(text="Thank you for reading suggestions!")
+
+    await ctx.send(embed=embed)
+
+    def check(m):
+        return m.channel == ctx.message.channel and m.author == ctx.message.author
+
+    try:
+        feedback = await client.wait_for("message", timeout=600, check=check)
+        author = ctx.message.author
+        pfp = author.avatar_url
+
+        channel = client.get_channel(774385992668151838)
+
+        embed = discord.Embed(title="Suggestion", description=f"{feedback}", color=discord.Color.blue())
+        embed.set_footer(text=f"Member ID: {ctx.message.author.id}")
+
+        msg = await channel.send(embed=embed)
+        await msg.add_reaction("👍")
+        await msg.add_reaction("👎")
+
+        embed = discord.Embed(description="Your suggestion has been added!", color=grab_color(str(author.id)))
+        embed.set_author(name=f"{str(author)[:-5]}'s suggestion", icon_url=pfp)
+        embed.add_field(name="See The Results", value="To see the results of your suggestion and to vote on others' suggestion, "
+                                                      "join our [Support Server](https://discord.gg/e428ktbYhd) and get **$500** daily!")
+
+        await ctx.send(embed=embed)
+
+    except asyncio.TimeoutError:
+        await ctx.send(f"{ctx.author.mention}, you did not send feedback in time.")
+
+
+@suggestion.error
+async def suggestion_error(ctx, error):
+    if isinstance(error, commands.CommandOnCooldown):
+        if int(error.retry_after) <= 3600:
+            if int(error.retry_after) <= 60:
+                retry = str(strftime("%S seconds", gmtime(error.retry_after)))
+            else:
+                retry = str(strftime("%M minutes and %S seconds", gmtime(error.retry_after)))
+        else:
+            retry = str(strftime("%H hours %M minutes and %S seconds", gmtime(error.retry_after)))
+
+        embed = discord.Embed(description=f"You can only make one suggestion a day! Try again in {retry}",
+                              color=discord.Color.blue())
+
+        await ctx.send(embed=embed)
                 
 try:
     client.load_extension("jishaku")
