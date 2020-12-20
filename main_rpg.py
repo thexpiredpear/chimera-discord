@@ -392,7 +392,7 @@ async def suggestion(ctx):
 
         channel = client.get_channel(774385992668151838)
 
-        embed = discord.Embed(title="Suggestion", description=f"{feedback}", color=discord.Color.blue())
+        embed = discord.Embed(title="Suggestion", description=f"{feedback.content}", color=discord.Color.blue())
         embed.set_footer(text=f"Member ID: {ctx.message.author.id}")
 
         msg = await channel.send(embed=embed)
