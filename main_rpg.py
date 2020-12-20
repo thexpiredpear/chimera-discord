@@ -359,9 +359,9 @@ async def _eval(ctx, *, code="You need to input code."):
         )
         await ctx.send(embed=embed)
 
-@client.command(aliases=["feedback", "suggest"])
+@client.command(aliases=["feedback", "suggestion"])
 @commands.cooldown(1, 86400, commands.BucketType.user)
-async def suggestion(ctx):
+async def suggest(ctx):
     embed = discord.Embed(title="Rules of Suggestions", description="The rules of suggestions! Please read before "
                                                                     "making a suggestion.", color=discord.Color.blue())
 
@@ -410,7 +410,7 @@ async def suggestion(ctx):
         await ctx.send(f"{ctx.author.mention}, you did not send feedback in time.")
 
 
-@suggestion.error
+@suggest.error
 async def suggestion_error(ctx, error):
     if isinstance(error, commands.CommandOnCooldown):
         if int(error.retry_after) <= 3600:
