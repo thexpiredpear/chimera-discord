@@ -13,6 +13,8 @@ import asyncio
 from urllib.parse import urlparse
 import sys
 import aiohttp
+from time import strftime
+from time import gmtime
 
 intents = discord.Intents(messages=True, guilds=True, reactions=True, members=True, presences=True)
 client = commands.Bot(command_prefix="ch ", intents=intents)
@@ -359,9 +361,9 @@ async def _eval(ctx, *, code="You need to input code."):
         )
         await ctx.send(embed=embed)
 
-@client.command(aliases=["feedback", "suggestion"])
+@client.command(aliases=["feedback", "suggest"])
 @commands.cooldown(1, 86400, commands.BucketType.user)
-async def suggest(ctx):
+async def suggestion(ctx):
     embed = discord.Embed(title="Rules of Suggestions", description="The rules of suggestions! Please read before "
                                                                     "making a suggestion.", color=discord.Color.blue())
 
@@ -410,7 +412,7 @@ async def suggest(ctx):
         await ctx.send(f"{ctx.author.mention}, you did not send feedback in time.")
 
 
-@suggest.error
+@suggestion.error
 async def suggestion_error(ctx, error):
     if isinstance(error, commands.CommandOnCooldown):
         if int(error.retry_after) <= 3600:
