@@ -363,7 +363,7 @@ async def _eval(ctx, *, code="You need to input code."):
 @commands.cooldown(1, 86400, commands.BucketType.user)
 async def suggestion(ctx):
     embed = discord.Embed(title="Rules of Suggestions", description="The rules of suggestions! Please read before "
-                                                                    "making a suggestion.", color=grab_color(str(ctx.author.id)))
+                                                                    "making a suggestion.", color=discord.Color.blue())
 
     embed.add_field(name="Make a suggestion that will be beneficial to the bot", value="Please make sure that your suggestion "
                                                                                       "will help the bot helpful to the bot, "
