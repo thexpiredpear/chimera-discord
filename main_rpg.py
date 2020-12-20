@@ -362,7 +362,7 @@ async def _eval(ctx, *, code="You need to input code."):
         await ctx.send(embed=embed)
 
 @client.command(aliases=["feedback", "suggest"])
-@commands.cooldown(1, 86400, commands.BucketType.user)
+#@commands.cooldown(1, 86400, commands.BucketType.user)
 async def suggestion(ctx):
     embed = discord.Embed(title="Rules of Suggestions", description="The rules of suggestions! Please read before "
                                                                     "making a suggestion.", color=discord.Color.blue())
