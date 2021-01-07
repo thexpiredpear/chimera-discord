@@ -118,7 +118,25 @@ async def profiles(ctx):
         await ctx.send("You currently have profile " + rpgdb.hget(str(ctx.message.author.id), "fruit").decode("utf-8") + " using class " + rpgdb.hget(str(ctx.message.author.id), "class").decode("utf-8"))
     else:
         await ctx.send("You currently have no profiles! Create one with [ch profile create <class>]")
-
+                       
+@client.command()
+async def inventory(ctx: commands.Context):
+    try:
+        gold = rpgdb.hget(str(ctx.author.id), "gold").decode("utf-8")
+        class_ = rpgdb.hget(str(ctx.author.id), "class").decode("utf-8")
+        name = rpgdb.hget(str(ctx.author.id), "fruit").decode("utf-8")
+    
+        embed = discord.Embed(title="Inventory", description="Welcome to your inventory!",
+                              color=discord.Color.blue())
+        embed.set_author(name=name, icon_url=ctx.author.avatar_url)
+    
+        embed.add_field(name="Class", value=class_, inline=False)
+        embed.add_field(name="Gold", value=gold, inline=False)
+    
+        await ctx.send(embed=embed)
+    except BaseException:
+        await ctx.send("Please create a new profile to update!")
+                       
 @client.command()
 async def fight(ctx):
     with open("regen_stats.json") as f:
