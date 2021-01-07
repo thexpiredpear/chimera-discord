@@ -446,6 +446,7 @@ async def suggestion_error(ctx, error):
                               color=discord.Color.blue())
 
         await ctx.send(embed=embed)
+     
                 
 try:
     client.load_extension("jishaku")
