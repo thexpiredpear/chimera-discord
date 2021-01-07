@@ -76,18 +76,7 @@ async def on_ready():
 @tasks.loop(seconds=30)
 async def change_status():
     await client.change_presence(activity=discord.Game(next(status)))
-
-@client.event
-async def on_message(message):
-    if message.channel.id == 774414766995013683:
-        if message.author.bot is False:
-            roles = message.author.roles
-            for role in roles:
-                if role.name == "Owner":
-                    return 
-            await message.channel.send("Thank you for responding!")
-            await asyncio.sleep(1)
-            await message.channel.purge(limit=2)
+           
             
 @client.command()
 async def profile(ctx, statement=None, profile_class=None):
