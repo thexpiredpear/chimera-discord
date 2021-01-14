@@ -381,7 +381,7 @@ async def _eval(ctx, *, code="You need to input code."):
         await ctx.send(embed=embed)
 
 @client.command(aliases=["feedback", "suggest"])
-#@commands.cooldown(1, 86400, commands.BucketType.user)
+@commands.cooldown(1, 86400, commands.BucketType.user)
 async def suggestion(ctx):
     embed = discord.Embed(title="Rules of Suggestions", description="The rules of suggestions! Please read before "
                                                                     "making a suggestion.", color=discord.Color.blue())
@@ -390,13 +390,13 @@ async def suggestion(ctx):
                                                                                       "will help the bot helpful to the bot, "
                                                                                       "do not suggest something that will hurt "
                                                                                       "the bot.", inline=False)
-    embed.add_field(name="No using inappropriate language", value="In your suggestion make sure to not have inappropriate language,"
-                                                                  "in fact we do have profanity filters and if you somehow bypass"
-                                                                  "that, it may be a bannable offense. **Occasional swearing is permitted**", inline=False)
-    embed.add_field(name="You may suggest something be added to the Server", value="Although you may suggest something beneficial to the bot,"
-                                                                                   "you may suggest something be added to the *server*, and"
+    embed.add_field(name="No using inappropriate language", value="In your suggestion make sure to not have inappropriate language, "
+                                                                  "in fact we do have profanity filters and if you somehow bypass "
+                                                                  "that, it may be a bannable offense. **Occasional swearing is permitted.**", inline=False)
+    embed.add_field(name="You may suggest something be added to the Server", value="Although you may suggest something beneficial to the bot, "
+                                                                                   "you may suggest something be added to the *server*, and "
                                                                                    "we will take your suggestion into account.", inline=False)
-    embed.add_field(name="No trolling or spamming", value="Do not troll the bot's server by typing arbitrary suggestions, and do not create alts"
+    embed.add_field(name="No trolling or spamming", value="Do not troll the bot's server by typing arbitrary suggestions, and do not create alts "
                                                           "and spam our suggestion feed. This is a *bannable* offense.")
     embed.add_field(name="Thank you for reading!", value="Type your suggestion down below. You have **10 minutes.**", inline=False)
     embed.set_footer(text="Thank you for reading suggestions!")
@@ -442,7 +442,7 @@ async def suggestion_error(ctx, error):
         else:
             retry = str(strftime("%H hours %M minutes and %S seconds", gmtime(error.retry_after)))
 
-        embed = discord.Embed(description=f"You can only make one suggestion a day! Try again in {retry}",
+        embed = discord.Embed(description=f"You can only make one suggestion a day! Try again in `{retry}`",
                               color=discord.Color.blue())
 
         await ctx.send(embed=embed)
