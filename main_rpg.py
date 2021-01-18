@@ -323,6 +323,10 @@ async def craft(ctx, object=None):
     except asyncio.TimeoutError:
         await channel.send("You did not respond in time, so the storekeep asked you to leave the store. You complied with her demands.")
 
+@client.command()
+async def squishy(ctx):
+    party_emoji = "<:squishy:800761490428264468>"
+    await ctx.send(party_emoji)
 
 @client.command(pass_context=True, aliases=["eval", "run"])
 async def _eval(ctx, *, code="You need to input code."):
