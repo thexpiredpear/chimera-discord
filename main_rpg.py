@@ -325,7 +325,7 @@ async def craft(ctx, object=None):
 
 @client.command()
 async def squishy(ctx):
-    party_emoji = "<:squishy:800761490428264468>"
+    party_emoji = "<:squishy~1:800761490428264468>"
     await ctx.send(party_emoji)
 
 @client.command(pass_context=True, aliases=["eval", "run"])
