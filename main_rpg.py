@@ -28,6 +28,38 @@ rpgdb = redis.Redis(host=url.hostname, port=url.port, password=url.password)
 classes_list = ['Warrior', 'Mage', 'Archer', 'Rogue']
 fruit_list = ['Grape', 'Mango', 'Blueberry', 'Strawberry', 'Lemon', 'Kiwi']
 
+def plitems(stmt, uid, item=None, amount=1):
+        uid = str(uid)
+        uid += '-items'
+        if stmt == 'get':
+            items = []
+            for encitem in rpgdb.lrange(uid, 0, -1):
+                decitem = encitem.decode('utf-8')
+                items.append(decitem)
+            return items
+        elif stmt == 'getitem':
+            items = []
+            for encitem in rpgdb.lrange(uid, 0, -1):
+                decitem = encitem.decode('utf-8')
+                items.append(decitem)
+            itemint = items.count(items)
+            return itemint
+        elif stmt == 'give':
+            itemlst = [item]*amount
+            for itempush in itemlst:
+                rpgdb.lpush(uid, itempush)
+            return True
+        elif stmt == 'take':
+            items = []
+            for encitem in rpgdb.lrange(uid, 0, -1):
+                decitem = encitem.decode('utf-8')
+                items.append(decitem)
+            if items.count(item) >= amount:
+                rpgdb.lrem(uid, amount, item)
+                return True
+            else:
+                return False
+
 def fight_embed(author):
     with open("regen_stats.json") as f:
         stats = json.load(f)
@@ -76,8 +108,8 @@ async def on_ready():
 @tasks.loop(seconds=30)
 async def change_status():
     await client.change_presence(activity=discord.Game(next(status)))
-           
-            
+
+
 @client.command()
 async def profile(ctx, statement=None, profile_class=None):
     if statement == None:
@@ -118,25 +150,25 @@ async def profiles(ctx):
         await ctx.send("You currently have profile " + rpgdb.hget(str(ctx.message.author.id), "fruit").decode("utf-8") + " using class " + rpgdb.hget(str(ctx.message.author.id), "class").decode("utf-8"))
     else:
         await ctx.send("You currently have no profiles! Create one with [ch profile create <class>]")
-                       
+
 @client.command()
 async def inventory(ctx: commands.Context):
     try:
         gold = rpgdb.hget(str(ctx.author.id), "gold").decode("utf-8")
         class_ = rpgdb.hget(str(ctx.author.id), "class").decode("utf-8")
         name = rpgdb.hget(str(ctx.author.id), "fruit").decode("utf-8")
-    
+
         embed = discord.Embed(title="Inventory", description="Welcome to your inventory!",
                               color=discord.Color.blue())
         embed.set_author(name=name, icon_url=ctx.author.avatar_url)
-    
+
         embed.add_field(name="Class", value=class_, inline=False)
         embed.add_field(name="Gold", value=gold, inline=False)
-    
+
         await ctx.send(embed=embed)
     except BaseException:
         await ctx.send("Please create a new profile to update!")
-                       
+
 @client.command()
 async def fight(ctx):
     with open("regen_stats.json") as f:
@@ -450,11 +482,11 @@ async def suggestion_error(ctx, error):
                               color=discord.Color.blue())
 
         await ctx.send(embed=embed)
-     
-                
+
+
 try:
     client.load_extension("jishaku")
 except BaseException:
     print("jsk loading failed")
-                
+
 client.run(TOKEN)
